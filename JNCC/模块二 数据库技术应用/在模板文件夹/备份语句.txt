@@ -1,0 +1,1 @@
+mysqldump -u root -p --no-tablespaces CustomerCredit > "D:\IdeaProjects\JNCC\JNCC\mysql\CustomerCredit_back.sql"
