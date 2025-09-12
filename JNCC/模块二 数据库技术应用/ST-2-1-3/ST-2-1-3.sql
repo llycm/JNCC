@@ -51,15 +51,15 @@ values (1, 100.0, default),
        (2, 200.0, default),
        (1, 50.0, default),
        (3, 1000.0, '2021-4-5'),
-(1, 10.0, '2021-4-5');
+       (1, 10.0, '2021-4-5');
 
 -- 插入消费数据
-insert into t_consume_money (card_id, consume_money,consume_datetime)
-values (1, 30.0,'2008-6-12'),
-       (2, 40.0,'2020-2-6'),
-       (3, 20.0,'2018-9-10'),
-       (1, 50.0,default),
-       (3, 80.0,default);
+insert into t_consume_money (card_id, consume_money, consume_datetime)
+values (1, 30.0, '2008-6-12'),
+       (2, 40.0, '2020-2-6'),
+       (3, 20.0, '2018-9-10'),
+       (1, 50.0, default),
+       (3, 80.0, default);
 
 -- （2）查询所有饭卡信息
 select *
@@ -71,11 +71,15 @@ from t_add_money
 where date(add_date) = '2021-04-05';
 
 -- （4）查询当天消费金额在30元以上的所有学生姓名
-select c.student_name
+select student_name
 from t_card c
-         join t_consume_money cm on c.card_id = cm.card_id
-where date(cm.consume_datetime) = curdate()
-  and cm.consume_money > 30;
+         join
+     (select card_id
+      from t_consume_money
+      where date(consume_datetime) = curdate()
+      group by card_id, consume_datetime
+      having sum(consume_money) > 30) cm
+     on c.card_id = cm.card_id;
 
 -- （5）删除姓名为“张三”的所有消费记录
 delete cm
