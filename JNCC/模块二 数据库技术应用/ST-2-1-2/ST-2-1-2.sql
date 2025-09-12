@@ -14,7 +14,8 @@ create table if not exists t_customer_info
     legal_name  varchar(10) not null comment '法人代表',
     reg_address varchar(60) not null comment '注册地址',
     post_code   char(6)     not null comment '邮政编码',
-    primary key (cust_id)
+    primary key (cust_id),
+    CONSTRAINT chk_post_code CHECK (post_code REGEXP '^[0-9]{6}$')
 ) comment '客户基本信息表';
 
 -- 创建客户信用等级表 t_cust_credit_level
@@ -117,8 +118,8 @@ begin
 end //
 delimiter ;
 
--- 调用存储过程示例
-# call p_cust_credit_level(1, 6, '2024-01-01', '2024-12-31');
+-- 调用存储过程
+call p_cust_credit_level(1, 6, '2024-01-01', '2024-12-31');
 
 # 任务 4：数据库备份
 # mysqldump -u root -p --no-tablespaces customercredit > "D:/Projects/Idea/JNCC/mysql/ST-2-1-6/customercredit_back.sql"
