@@ -70,4 +70,4 @@ from t_employee
 where emp_age > 60;
 
 # 任务4：数据库备份
-# mysqldump -u root -p --no-tablespaces educationmanage > "d:/projects/idea/jncc/mysql/st-2-1-6/educationmanage_back.sql"
+# mysqldump -u root -p --no-tablespaces educationmanage > "d:/projects/idea/jncc/mysql/st-2-1-4/educationmanage_back.sql"
